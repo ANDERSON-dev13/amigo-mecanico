@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chave Certa - Conversor de Medidas</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: #004aad;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: #004aad;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #003580;
+        }
+        .result {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #004aad;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #999;
+        }
+        footer a {
+            color: #004aad;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chave Certa</h1>
+        <p>Conversor de Medidas Profissional</p>
+        <input id="inputValue" type="text" placeholder="Digite o valor (mm ou polegadas)">
+        <button onclick="convertToInches()">Converter: Milímetros → Polegadas</button>
+        <button onclick="convertToMm()">Converter: Polegadas → Milímetros</button>
+        <div class="result" id="result">Resultado: </div>
+        <footer>
+            <p>Desenvolvido por <a href="#">ANDERSON ARAUJO</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const medidas = [
+            { mm: 6, inches: "1/4" },
+            { mm: 8, inches: "5/16" },
+            { mm: 10, inches: "3/8" },
+            { mm: 11, inches: "7/16" },
+            { mm: 13, inches: "1/2" },
+            { mm: 14, inches: "9/16" },
+            { mm: 17, inches: "5/8" },
+            { mm: 19, inches: "3/4" },
+            { mm: 22, inches: "7/8" },
+            { mm: 24, inches: "15/16" },
+            { mm: 25, inches: "1" },
+            { mm: 27, inches: "1-1/16" },
+            { mm: 30, inches: "1-3/16" },
+            { mm: 32, inches: "1-1/4" },
+            { mm: 36, inches: "1-7/16" },
+            { mm: 41, inches: "1-5/8" },
+            { mm: 46, inches: "1-13/16" },
+            { mm: 50, inches: "2" }
+        ];
+
+        function parseFractionalInput(input) {
+            const parts = input.split(' ');
+            let wholeNumber = 0;
+            let fraction = 0;
+
+            if (parts.length === 2) {
+                wholeNumber = parseInt(parts[0], 10);
+                fraction = eval(parts[1]); // Converte "1/8" para 0.125
+            } else if (parts.length === 1) {
+                if (input.includes('/')) {
+                    fraction = eval(input);
+                } else {
+                    wholeNumber = parseInt(input, 10);
+                }
+            }
+
+            return wholeNumber + fraction;
+        }
+
+        function convertToInches() {
+            const mm = parseFloat(document.getElementById('inputValue').value);
+            if (isNaN(mm)) {
+                alert('Digite um valor válido em milímetros!');
+                return;
+            }
+
+            const closest = medidas.reduce((prev, curr) =>
+                Math.abs(curr.mm - mm) < Math.abs(prev.mm - mm) ? curr : prev
+            );
+
+            document.getElementById('result').innerText = 
+                `Resultado: ${mm} mm ≈ ${closest.inches} polegadas`;
+        }
+
+        function convertToMm() {
+            const input = document.getElementById('inputValue').value.trim();
+
+            // Verifica se o valor está na tabela
+            const match = medidas.find(m => m.inches === input);
+            if (match) {
+                document.getElementById('result').innerText = 
+                    `Resultado: ${input} polegadas ≈ ${match.mm} mm`;
+                return;
+            }
+
+            // Converte valores compostos como "1 1/8"
+            const inches = parseFractionalInput(input);
+            const mm = (inches * 25.4).toFixed(3);
+
+            document.getElementById('result').innerText = 
+                `Resultado: ${input} polegadas ≈ ${mm} mm`;
+        }
+    </script>
+</body>
+</html>

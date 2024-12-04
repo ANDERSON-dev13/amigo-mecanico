@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Torque e Pressão</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .form-container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-container input, .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background: #004aad;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .form-container button:hover {
+            background: #003580;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #004aad;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Conversor de Torque e Pressão</h1>
+        <p>Converta entre pressão (bar, psi, kgf/cm²) e torque (Nm).</p>
+    </header>
+    <main class="container">
+        <div class="form-container">
+            <label for="value">Valor:</label>
+            <input type="number" id="value" placeholder="Digite o valor">
+
+            <label for="unit">Converter de:</label>
+            <select id="unit">
+                <option value="bar">bar</option>
+                <option value="psi">psi</option>
+                <option value="kgf/cm²">kgf/cm²</option>
+                <option value="Nm">Nm</option>
+            </select>
+
+            <label for="target">Para:</label>
+            <select id="target">
+                <option value="Nm">Nm</option>
+                <option value="bar">bar</option>
+                <option value="psi">psi</option>
+                <option value="kgf/cm²">kgf/cm²</option>
+            </select>
+
+            <button onclick="convert()">Converter</button>
+            <div class="result" id="result">O resultado será exibido aqui.</div>
+        </div>
+        <a href="index.html">Voltar à página principal</a>
+    </main>
+    <script>
+        // Fatores de conversão
+        const conversionFactors = {
+            bar: { Nm: 10, psi: 14.5038, "kgf/cm²": 1 },
+            psi: { Nm: 0.06895, bar: 0.06895, "kgf/cm²": 0.07031 },
+            "kgf/cm²": { Nm: 9.80665, bar: 1, psi: 14.2233 },
+            Nm: { bar: 0.1, psi: 14.5038, "kgf/cm²": 0.10197 }
+        };
+
+        function convert() {
+            const value = parseFloat(document.getElementById("value").value);
+            const fromUnit = document.getElementById("unit").value;
+            const toUnit = document.getElementById("target").value;
+
+            if (isNaN(value) || value <= 0) {
+                alert("Por favor, insira um valor válido.");
+                return;
+            }
+
+            if (fromUnit === toUnit) {
+                document.getElementById("result").innerText = `O valor é o mesmo: ${value} ${toUnit}`;
+                return;
+            }
+
+            const factor = conversionFactors[fromUnit][toUnit];
+            const result = (value * factor).toFixed(2);
+
+            document.getElementById("result").innerText = `${value} ${fromUnit} = ${result} ${toUnit}`;
+        }
+    </script>
+</body>
+</html>

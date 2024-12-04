@@ -1,0 +1,68 @@
+/* Estilos Globais */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+
+    display: flex; /* Flexbox para organizar os elementos */
+    flex-direction: column; /* Alinha os elementos na vertical */
+    min-height: 100vh; /* Garante que o body ocupe toda a altura da tela */
+}
+
+/* Estilo do Cabeçalho */
+header {
+    background: #004aad;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* Estilo do Menu de Navegação */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    background: #003580;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: inline-block;
+}
+
+nav ul li a:hover {
+    background: #002550;
+    border-radius: 5px;
+}
+
+/* Estilo da Área Principal */
+.container {
+    flex: 1; /* Faz o conteúdo principal expandir para empurrar o rodapé */
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo do Rodapé */
+footer {
+    background: #ddd; /* Cor de fundo do rodapé */
+    text-align: center;
+    padding: 10px 0; /* Espaçamento interno */
+    font-size: 0.9rem; /* Tamanho do texto */
+    width: 100%; /* Faz o rodapé ocupar toda a largura */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Adiciona sombra */
+    margin-top: auto; /* Empurra o rodapé para o final da página */
+}
