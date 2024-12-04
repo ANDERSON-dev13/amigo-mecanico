@@ -66,10 +66,3 @@ footer {
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Adiciona sombra */
     margin-top: auto; /* Empurra o rodapé para o final da página */
 }
-.tool-card img {
-    width: 100px; /* Define largura da imagem */
-    height: auto; /* Mantém a proporção */
-    margin-bottom: 10px; /* Espaçamento entre a imagem e o título */
-    border-radius: 5px; /* Bordas arredondadas */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
-}
